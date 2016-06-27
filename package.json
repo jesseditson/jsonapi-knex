@@ -1,0 +1,30 @@
+{
+  "name": "jsonapi-knex",
+  "version": "0.0.1",
+  "description": "jsonapi-express operations for knex",
+  "main": "index.js",
+  "scripts": {
+    "test": "tape test/*js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/jesseditson/jsonapi-knex.git"
+  },
+  "keywords": [
+    "jsonapi",
+    "knex",
+    "jsonapi-express",
+    "operations",
+    "jsonapi-schema",
+    "ember-jsonapi"
+  ],
+  "author": "Jesse Ditson <jesse.ditson@gmail.com>",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/jesseditson/jsonapi-knex/issues"
+  },
+  "homepage": "https://github.com/jesseditson/jsonapi-knex#readme",
+  "devDependencies": {
+    "tape": "^4.6.0"
+  }
+}
