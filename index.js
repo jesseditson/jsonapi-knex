@@ -4,16 +4,17 @@
  * This will fill in all the required operations, and return an object ready for decoration.
  * You may add a sideEffects dictionary and/or an authorize middleware function to this object before passing to jsonapi-express.
  *
- * @param  {knex} db   A preconfigured knex instance
- * @return {object}    An operations dictionary to pass to jsonapi-express
+ * @param  {knex} db          A preconfigured knex instance
+ * @param  {object} schemas   A dictionary of schemas
+ * @return {object}           An operations dictionary to pass to jsonapi-express
  */
-module.exports = function(db) {
+module.exports = function(db, schemas) {
   var operations = {}
   operations.findAll = function(type, fields, filter) {
-    return query(db)(type, fields, filter)
+    return query(db, schemas)(type, fields, filter)
   }
   operations.findOne = function(type, fields, filter) {
-    return query(db)(type, fields, filter).first()
+    return query(db, schemas)(type, fields, filter).first()
   }
   operations.create = function(type, data) {
     return db(type)
@@ -25,7 +26,7 @@ module.exports = function(db) {
       .where('id', id)
       .update(getAttributes(data))
       .then(() => {
-        return query(db)(type, '*', { params: { id: id } }).first()
+        return query(db, schemas)(type, '*', { params: { id: id } }).first()
       })
   }
   operations.delete = function(type, id) {
@@ -43,7 +44,7 @@ module.exports = function(db) {
  * Private
  */
 
-function query(db){
+function query(db, schemas){
   return function(type, fields, filter) {
     var qb = db(type)
     if (filter.join) {
