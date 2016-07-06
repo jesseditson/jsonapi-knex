@@ -1,6 +1,6 @@
 {
   "name": "jsonapi-knex",
-  "version": "0.0.2",
+  "version": "0.0.3",
   "description": "jsonapi-express operations for knex",
   "main": "index.js",
   "scripts": {
