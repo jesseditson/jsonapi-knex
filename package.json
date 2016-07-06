@@ -26,5 +26,8 @@
   "homepage": "https://github.com/jesseditson/jsonapi-knex#readme",
   "devDependencies": {
     "tape": "^4.6.0"
+  },
+  "dependencies": {
+    "pluralize": "^3.0.0"
   }
 }
