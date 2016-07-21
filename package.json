@@ -29,5 +29,8 @@
   },
   "dependencies": {
     "pluralize": "^3.0.0"
+  },
+  "engines": {
+    "node": ">= 5.0.0"
   }
 }

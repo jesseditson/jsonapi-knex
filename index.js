@@ -1,10 +1,10 @@
+/** @module jsonapi-knex */
 var pluralize = require('pluralize')
 
 /**
- * jsonapi-knex
  * jsonapi-express operations for knex
  * This will fill in all the required operations, and return an object ready for decoration.
- * You may add a sideEffects dictionary and/or an authorize middleware function to this object before passing to jsonapi-express.
+ * You may add a transforms dictionary and/or an authorize middleware function to this object before passing to jsonapi-express.
  *
  * @param  {knex} db          A preconfigured knex instance
  * @param  {object} schemas   A dictionary of schemas
@@ -58,10 +58,6 @@ module.exports = function(db, schemas, tables) {
   return operations
 }
 
-/**
- * Private
- */
-
 function tableMap(tables) {
   tables = tables || {}
   return function(type) {
@@ -80,7 +76,7 @@ function parseFilter(filter) {
   return { filter, includeModels }
 }
 
-/** Check if a lookup is empty. Validates array and primitive types */
+// Check if a lookup is empty. Validates array and primitive types
 function hasUndefined(lookup) {
   if (typeof lookup === 'undefined' || lookup === null) {
     return true
