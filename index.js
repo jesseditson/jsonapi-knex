@@ -141,9 +141,23 @@ function query(db, schemas, getTable){
     } else if (fields) {
       qb.select(fields)
     }
-    if (filter.params) qb.where(filter.params)
-    if (filter.query) qb.where(filter.query)
+    if (filter.params) where(qb, filter.params)
+    if (filter.query) where(qb, filter.query)
     return qb
+  }
+}
+
+function where(qb, filter) {
+  for (var f in filter) {
+    var value = filter[f];
+    if (Array.isArray(value) && value.length) {
+      qb.where(function() {
+        this.where(f, value.splice(0, 1)[0]);
+        value.forEach(v => this.orWhere(f, v));
+      });
+    } else {
+      qb.where(f, value);
+    }
   }
 }
 
