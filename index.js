@@ -15,19 +15,19 @@ module.exports = function(db, schemas, tables) {
   var getTable = tableMap(tables)
   var operations = {}
   var addIncludes = includesFunction(db, getTable, schemas)
-  function find(type, fields, filter, buildQuery) {
+  function find(type, fields, filter, opts, buildQuery) {
     var qb = query(db, schemas, getTable)(type, fields, filter)
-    if (buildQuery) buildQuery(qb)
+    if (typeof buildQuery === 'function') buildQuery(qb)
     return qb
   }
-  operations.findAll = function(type, fields, filter, buildQuery) {
+  operations.findAll = function(type, fields, filter, opts, buildQuery) {
     var filterInfo = parseFilter(filter)
-    var qb = find.call(this, type, fields, filterInfo.filter, buildQuery)
+    var qb = find.call(this, type, fields, filterInfo.filter, opts, buildQuery)
     return addIncludes(qb, type, filterInfo.includeModels)
   }
-  operations.findOne = function(type, fields, filter, buildQuery) {
+  operations.findOne = function(type, fields, filter, opts, buildQuery) {
     var filterInfo = parseFilter(filter)
-    var qb = find.call(this, type, fields, filterInfo.filter, buildQuery).first()
+    var qb = find.call(this, type, fields, filterInfo.filter, opts, buildQuery).first()
     return addIncludes(qb, type, filterInfo.includeModels)
   }
   operations.create = function(type, data) {
